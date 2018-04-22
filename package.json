@@ -1,0 +1,42 @@
+{
+  "name": "node-viacep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint src/*.js",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "test -- --coverage"
+  },
+  "author": "Adriano Reis <adriano_silvareis@hotmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.3",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "jest": "^22.4.3",
+    "sinon": "^4.5.0",
+    "sinon-stub-promise": "^4.0.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
+  },
+  "dependencies": {
+    "node-fetch": "^2.1.2"
+  }
+}
