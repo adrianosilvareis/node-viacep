@@ -1,5 +1,6 @@
-const searchCod = (type, cep) =>
-  this.request(`${this.apiURL}/${cep}/${type}`);
+function searchCod(type, cep) {
+  return this.request(`${this.apiURL}/${cep}/${type}/`);
+}
 
 export default function zipCod() {
   return {

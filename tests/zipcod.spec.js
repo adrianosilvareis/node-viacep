@@ -1,49 +1,140 @@
-// "json", "xml", "piped" ou "querty".
-// https://viacep.com.br/ws/01001000/json/
-// https://viacep.com.br/ws/01001000/xml/
-// https://viacep.com.br/ws/01001000/piped/
-// https://viacep.com.br/ws/01001000/querty/
-
-// export default class ZipCod {
-
-//   constructor(options) {
-//     this.type = options.type || 'json';
-//   }
-// }
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import sinonStubPromise from 'sinon-stub-promise';
 import ViaCep from '../src';
 
-describe('zipCod', () => {
+sinonStubPromise(sinon);
+chai.use(sinonChai);
+global.fetch = require('node-fetch');
 
-  it('should create an instance of ViaCep', () => {
-    const viacep = new ViaCep();
-    expect(viacep).to.be.an.instanceOf(ViaCep);
+describe('zipCod', () => {
+  let viacep;
+  let stubedFetch;
+  let promise;
+
+  beforeEach(() => {
+    viacep = new ViaCep({});
+
+    stubedFetch = sinon.stub(global, 'fetch');
+    promise = stubedFetch.returnsPromise();
+  });
+
+  afterEach(() => {
+    stubedFetch.restore();
   });
 
   describe('smoke tests', () => {
     it('should zipcode method is exist', () => {
-      const viacep = new ViaCep();
       expect(viacep.zipCod).to.be.exist;
     });
 
     it('should getJson method exist', () => {
-      const viacep = new ViaCep();
       expect(viacep.zipCod.getJson).to.be.exist;
     });
 
     it('should getXml method exist', () => {
-      const viacep = new ViaCep();
       expect(viacep.zipCod.getXml).to.be.exist;
     });
 
     it('should getPiped method exist', () => {
-      const viacep = new ViaCep();
       expect(viacep.zipCod.getPiped).to.be.exist;
     });
 
     it('should getQuerty method exist', () => {
-      const viacep = new ViaCep();
       expect(viacep.zipCod.getQuerty).to.be.exist;
+    });
+  });
+
+  describe('getJson', () => {
+    it('should call fetch method', () => {
+      viacep.zipCod.getJson()
+      expect(stubedFetch).to.have.been.calledOnce;
+    });
+
+    it('should call fetch the correct URL', () => {
+      viacep.zipCod.getJson('29027422')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29027422/json/');
+
+      viacep.zipCod.getJson('29010250')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29010250/json/');
+    });
+
+    it('should return the correct data from the promise', () => {
+      promise.resolves({ endereco: 'rua alberto' });
+      const address = viacep.zipCod.getJson('29010250');
+      expect(address.resolveValue).to.be.eql({ endereco: 'rua alberto' });
+    });
+  });
+
+  describe('getXml', () => {
+    it('should call fetch method', () => {
+      viacep.zipCod.getXml()
+      expect(stubedFetch).to.have.been.calledOnce;
+    });
+
+    it('should call fetch the correct URL', () => {
+      viacep.zipCod.getXml('29027422')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29027422/xml/');
+
+      viacep.zipCod.getXml('29010250')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29010250/xml/');
+    });
+
+    it('should return the correct data from the promise', () => {
+      promise.resolves({ endereco: 'rua alberto' });
+      const address = viacep.zipCod.getXml('29010250');
+      expect(address.resolveValue).to.be.eql({ endereco: 'rua alberto' });
+    });
+  });
+
+  describe('getPiped', () => {
+    it('should call fetch method', () => {
+      viacep.zipCod.getPiped()
+      expect(stubedFetch).to.have.been.calledOnce;
+    });
+
+    it('should call fetch the correct URL', () => {
+      viacep.zipCod.getPiped('29027422')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29027422/piped/');
+
+      viacep.zipCod.getPiped('29010250')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29010250/piped/');
+    });
+
+    it('should return the correct data from the promise', () => {
+      promise.resolves({ endereco: 'rua alberto' });
+      const address = viacep.zipCod.getPiped('29010250');
+      expect(address.resolveValue).to.be.eql({ endereco: 'rua alberto' });
+    });
+  });
+
+  describe('getQuerty', () => {
+    it('should call fetch method', () => {
+      viacep.zipCod.getQuerty()
+      expect(stubedFetch).to.have.been.calledOnce;
+    });
+
+    it('should call fetch the correct URL', () => {
+      viacep.zipCod.getQuerty('29027422')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29027422/querty/');
+
+      viacep.zipCod.getQuerty('29010250')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29010250/querty/');
+    });
+
+    it('should return the correct data from the promise', () => {
+      promise.resolves({ endereco: 'rua alberto' });
+      const address = viacep.zipCod.getQuerty('29010250');
+      expect(address.resolveValue).to.be.eql({ endereco: 'rua alberto' });
     });
   });
 });

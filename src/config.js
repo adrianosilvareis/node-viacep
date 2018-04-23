@@ -1,1 +1,1 @@
-export const API_URL = 'https://viacep.com.br/ws/';
+export const API_URL = 'https://viacep.com.br/ws';
