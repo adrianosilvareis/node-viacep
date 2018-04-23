@@ -1,7 +1,8 @@
 # Node ViaCep
 
-[![Build Status](https://travis-ci.org/adrianosilvareis/spotify.svg?branch=master)](https://travis-ci.org/adrianosilvareis/spotify) [![Coverage Status](https://coveralls.io/repos/github/adrianosilvareis/spotify/badge.svg?branch=master)](https://coveralls.io/github/adrianosilvareis/spotify?branch=master)[![Known Vulnerabilities](https://snyk.io/test/github/adrianosilvareis/spotify/badge.svg?targetFile=package.json)](https://snyk.io/test/github/adrianosilvareis/spotify?targetFile=package.json)
-
+[![Build Status](https://travis-ci.org/adrianosilvareis/node-viacep.svg?branch=master)](https://travis-ci.org/adrianosilvareis/node-viacep)
+[![Coverage Status](https://coveralls.io/repos/github/adrianosilvareis/node-viacep/badge.svg?branch=master)](https://coveralls.io/github/adrianosilvareis/node-viacep?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/adrianosilvareis/node-viacep/badge.svg?targetFile=package.json)](https://snyk.io/test/github/adrianosilvareis/node-viacep?targetFile=package.json)
 
 A wrapper to work with the [ViaCep Web API](https://viacep.com.br/).
 
