@@ -4,6 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clear": "rimraf lib && rimraf dist && rimraf coverage",
+    "build": "npm run clear && babel --out-dir lib src",
+    "build:watch": "npm run build -- --watch",
+    "build:umd": "./node_modules/.bin/webpack --output-filename spotity-wrapper.umd.js --mode development",
+    "build:umd:min": "./node_modules/.bin/webpack --output-filename spotity-wrapper.umd.min.js --mode production ",
+    "build:all": "npm run build && npm run build:umd && npm run build:umd:min",
     "lint": "./node_modules/.bin/eslint src/*.js",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
@@ -11,19 +17,29 @@
   },
   "author": "Adriano Reis <adriano_silvareis@hotmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adrianosilvareis/node-viacep/issues"
+  },
+  "homepage": "https://github.com/adrianosilvareis/node-viacep#readme",
   "devDependencies": {
     "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
+    "husky": "^0.14.3",
     "jest": "^22.4.3",
+    "rimraf": "^2.6.2",
     "sinon": "^4.5.0",
     "sinon-chai": "^3.0.0",
-    "sinon-stub-promise": "^4.0.0"
+    "sinon-stub-promise": "^4.0.0",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15"
   },
   "jest": {
     "moduleFileExtensions": [

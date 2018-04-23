@@ -1,5 +1,5 @@
-function searchZip(type, ...address) {
-  return this.request(`${this.apiURL}/${address.join('/')}/${type}/`);
+function searchZip(type, ...url) {
+  return this.request(`${this.apiURL}/${url.join('/')}/${type}/`);
 }
 
 export default function address() {
