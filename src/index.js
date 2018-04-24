@@ -17,6 +17,6 @@ export default class ViaCep {
   request(url) {
     this.url = url;
 
-    return fetch(url);
+    return fetch(url).then(data => data.json());
   }
 }
