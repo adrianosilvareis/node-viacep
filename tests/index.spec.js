@@ -1,11 +1,14 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import sinonStubPromise from 'sinon-stub-promise';
 
 import ViaCep from '@/index';
 import { API_URL } from '@/config';
 
+sinonStubPromise(sinon);
 chai.use(sinonChai);
+
 global.fetch = require('node-fetch');
 
 describe('ViaCep Library', () => {
@@ -31,9 +34,11 @@ describe('ViaCep Library', () => {
 
   describe('request method', () => {
     let stubedFetch;
+    let promise;
 
     beforeEach(() => {
       stubedFetch = sinon.stub(global, 'fetch');
+      promise = stubedFetch.returnsPromise();
     });
 
     afterEach(() => {
