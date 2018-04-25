@@ -11,18 +11,16 @@
 <script src="../dist/viacep.umd.js"></script>
 
 <script>
-  const viacep = new ViaCep({
-    type: 'json'
-  })
+  const viacep = new ViaCep({});
 
-  const address = viacep.zipCod.getJson('29027422');
+  const address = viacep.zipCod.getQuerty('29027422');
+
   const addressEl = document.getElementById('address');
 
   address
-    .then(data => {
-      markup = `<li>${JSON.stringify(data)}</li>`;
-      addressEl.innerHTML = markup;
-    });
+    .then(data => data.text())
+    .then(data => console.log(data));
+
 </script>
 </body>
 </html>
