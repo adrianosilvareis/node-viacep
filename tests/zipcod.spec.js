@@ -29,6 +29,10 @@ describe('zipCod', () => {
       expect(viacep.zipCod).to.be.exist;
     });
 
+    it('should getZip method exist', () => {
+      expect(viacep.zipCod.getZip).to.be.exist;
+    });
+
     it('should getJson method exist', () => {
       expect(viacep.zipCod.getJson).to.be.exist;
     });
@@ -43,6 +47,37 @@ describe('zipCod', () => {
 
     it('should getQuerty method exist', () => {
       expect(viacep.zipCod.getQuerty).to.be.exist;
+    });
+  });
+
+  describe('getZip', () => {
+    let viacepZipTest;
+
+    beforeEach(() => {
+      viacepZipTest = new ViaCep({
+        type: 'piped'
+      });
+    })
+
+    it('should call fetch method', () => {
+      viacepZipTest.zipCod.getZip()
+      expect(stubedFetch).to.have.been.calledOnce;
+    });
+
+    it('should call fetch the correct URL', () => {
+      viacepZipTest.zipCod.getZip('29027422')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29027422/piped/');
+
+      viacepZipTest.zipCod.getZip('29010250')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/29010250/piped/');
+    });
+
+    it('should return the correct data from the promise', () => {
+      promise.resolves({ endereco: 'rua alberto' });
+      const address = viacepZipTest.zipCod.getZip('29010250');
+      expect(address.resolveValue).to.be.eql({ endereco: 'rua alberto' });
     });
   });
 

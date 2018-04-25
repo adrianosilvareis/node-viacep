@@ -49,12 +49,54 @@ describe('address', () => {
 
   describe('smoke tests', () => {
     it('should address method is exist', () => {
+      expect(viacep.address).to.exist;
+    });
+
+    it('should getZip method in address is exist', () => {
+      expect(viacep.address.getZip).to.exist;
+    });
+
+    it('should getJson method in address is exist', () => {
       expect(viacep.address.getJson).to.exist;
     });
 
-    it('should address method is exist', () => {
+    it('should getXml method in address is exist', () => {
       expect(viacep.address.getXml).to.exist;
     });
+  });
+
+  describe('getZip', () => {
+    let viacepZipTest;
+
+    beforeEach(() => {
+      viacepZipTest = new ViaCep({
+        type: 'xml'
+      });
+    });
+
+    it('should call fetch method', () => {
+      viacepZipTest.address.getZip();
+      expect(stubedFetch).to.have.been.calledOnce;
+    });
+
+    it('should call fetch the correct URL', () => {
+      viacepZipTest.address
+      .getZip('RS', 'vitoria', 'adalberto')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/RS/vitoria/adalberto/xml/');
+
+      viacepZipTest.address
+      .getZip('uf', 'city', 'street')
+      expect(stubedFetch).to.have.be
+        .calledWith('https://viacep.com.br/ws/uf/city/street/xml/');
+    });
+
+    it('should return the correct data from the promise', () => {
+      promise.resolves(retorno);
+      const zipcods = viacepZipTest.address.getZip('es', 'vitoria', 'adalberto');
+      expect(zipcods.resolveValue).to.be.eql(retorno);
+    });
+
   });
 
   describe('getJson', () => {

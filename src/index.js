@@ -9,6 +9,7 @@ import { API_URL } from './config';
 export default class ViaCep {
   constructor(options) {
     this.apiURL = options.apiURL || API_URL;
+    this.type = options.type || 'json';
 
     this.zipCod = zipCod.bind(this)();
     this.address = address.bind(this)();
@@ -17,6 +18,11 @@ export default class ViaCep {
   request(url) {
     this.url = url;
 
-    return fetch(url).then(data => data.json());
+    return fetch(url, {
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
   }
 }

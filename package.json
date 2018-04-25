@@ -6,9 +6,9 @@
   "scripts": {
     "clear": "rimraf lib && rimraf dist && rimraf coverage",
     "build": "npm run clear && babel --out-dir lib src",
-    "build:watch": "npm run build -- --watch",
     "build:umd": "./node_modules/.bin/webpack --output-filename viacep.umd.js --mode development",
     "build:umd:min": "./node_modules/.bin/webpack --output-filename viacep.umd.min.js --mode production ",
+    "build:watch": "npm run build:umd -- --watch",
     "build:all": "npm run build && npm run build:umd && npm run build:umd:min",
     "lint": "./node_modules/.bin/eslint src/*.js",
     "test": "jest",
