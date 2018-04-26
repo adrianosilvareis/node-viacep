@@ -18,6 +18,8 @@ This library relies on [Fetch API](https://fetch.spec.whatwg.org/). And this API
 
 This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests to the Spotify Web API. For environments that don't support fetch, you'll need to provide a [polyfill](https://github.com/github/fetch) to browser or [polyfill](https://github.com/bitinn/node-fetch) to Node.
 
+more info on how to use [node-fech](https://github.com/bitinn/node-fetch).
+
 ## Installation
 
 ```sh
@@ -36,68 +38,129 @@ const viacep = new ViaCep({
   type: 'json'
 })
 
-// using  method
-spotify.search.artists('Incubus');
 ```
 
 ### CommonJS
 
 ```js
-const SpotifyWrapper = require('spotify-wrapper').default;
+const ViaCep = require('node-viacep').default;
 
-const spotify = new SpotifyWrapper({
-  token: 'YOUR_TOKEN_HERE'
-});
+const viacep = new ViaCep({
+  type: 'json'
+})
 ```
 
 ### UMD in Browser
 
 ```html
 <!-- to import non-minified version -->
-<script src="spotify-wrapper.umd.js"></script>
+<script src="viacep.umd.js"></script>
 
 <!-- to import minified version -->
-<script src="spotify-wrapper.umd.min.js"></script>
+<script src="viacep.umd.min.js"></script>
 ```
 
-After that the library will be available to the Global as `SpotifyWrapper`. Follow an example:
+After that the library will be available to the Global as `ViaCep`. Follow an example:
 
 ```js
+import ViaCep from 'node-viacep';
 
-const spotify = new SpotifyWrapper({
-  token: 'YOUR_TOKEN_HERE'
-});
+global.fetch = require('node-fetch');
 
-const albums = spotify.search.albums('Choosen Artist');
+const viacep = new ViaCep({
+  type: 'json'
+})
+
+const address = viacep.zipCod.getZip('29010250');
+
+address
+  .then(data => data.json())
+  .then(data => console.log(data));
 ```
 
-## Methods
+## Types and returns
+> The types to use in constructor
+
+**JSON**
+
+```js
+//use in zipCod and address methods
+
+const viacep = new ViaCep({
+  type: 'json'
+})
+
+//return
+{ cep: '29010-250',
+  logradouro: 'Rua Alberto de Oliveira Santos',
+  complemento: '',
+  bairro: 'Centro',
+  localidade: 'Vitória',
+  uf: 'ES',
+  unidade: '',
+  ibge: '3205309',
+  gia: ''
+}
+```
+
+**XML**
+
+```js
+//use in zipCod and address methods
+const viacep = new ViaCep({
+  type: 'xml'
+})
+
+//return
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlcep>
+  <cep>29010-250</cep>
+  <logradouro>Rua Alberto de Oliveira Santos</logradouro>
+  <complemento></complemento>
+  <bairro>Centro</bairro>
+  <localidade>Vitória</localidade>
+  <uf>ES</uf>
+  <unidade></unidade>
+  <ibge>3205309</ibge>
+  <gia></gia>
+</xmlcep>
+```
+
+**PIPED**
+
+```js
+//just use in zipCod methods
+
+const viacep = new ViaCep({
+  type: 'piped'
+})
+
+//return
+cep:29010-250|logradouro:Rua Alberto de Oliveira Santos|complemento:|bairro:Centro|localidade:Vitória|uf:ES|unidade:|ibge:3205309|gia:
+```
+
+**QUERTY**
+
+```js
+//just use in zipCod methods
+const viacep = new ViaCep({
+  type: 'json'
+})
+
+//return
+cep=29010-250&logradouro=Rua+Alberto+de+Oliveira+Santos&complemento=&bairro=Centro&localidade=Vit%C3%B3ria&uf=ES&unidade=&ibge=3205309&gia=
+```
+
+# Methods
+
+## zipCod methods
 
 > Follow the methods that the library provides.
 
-### search.albums(query)
 
-> Search for informations about Albums with provided query. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-search-item/) with type defined as *album*.
+### zipCod.getZip(query)
 
-**Arguments**
-
-| Argument | Type    | Options           |
-|----------|---------|-------------------|
-|`query`   |*string* | 'Any search query'|
-
-
-**Example**
-
-```js
-spotify.search.albums('Incubus')
-  .then(data => {
-    // do what you want with the data
-  })
-```
-
-### search.artists(query)
-
-> Search for informations about Artists with provided query. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-search-item/) with type defined as *artist*.
+> Search for informations about zipcode with provided query. Test in [ViaCep Api](https://viacep.com.br/).
 
 **Arguments**
 
@@ -108,16 +171,57 @@ spotify.search.albums('Incubus')
 
 **Example**
 
+> this method returns the type specified in the constructor
+
 ```js
-spotify.search.artists('Incubus')
-  .then(data => {
-    // do what you want with the data
-  })
+viacep.zipCod.getZip('29010250')
+  .then(data => data.text())
+  .then(data => console.log(data));
 ```
 
-### search.tracks(query)
+### zipCod.getJson(query)
 
-> Search for informations about Tracks with provided query. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-search-item/) with type defined as *track*.
+> Search for informations about zipcode with provided query. Test in [ViaCep Api](https://viacep.com.br/ws/01001000/json/).
+
+**Arguments**
+
+| Argument | Type    | Options           |
+|----------|---------|-------------------|
+|`query`   |*string* | 'Any search query'|
+
+
+**Example**
+> this method returns a json
+
+```js
+viacep.zipCod.getJson('29010250')
+  .then(data => data.json())
+  .then(data => console.log(data));
+```
+
+### zipCod.getXml(query)
+
+> Search for informations about zipcode with provided query. Test in [ViaCep Api](https://viacep.com.br/ws/01001000/xml/).
+
+**Arguments**
+
+| Argument | Type    | Options           |
+|----------|---------|-------------------|
+|`query`   |*string* | 'Any search query'|
+
+
+**Example**
+> this method returns an xml
+
+```js
+viacep.zipCod.getXml('29010250')
+  .then(data => data.text())
+  .then(data => console.log(data));
+```
+
+### zipCod.getPiped(query)
+
+> Search for informations about zipcode with provided query. Test in [ViaCep Api](https://viacep.com.br/ws/01001000/piped/).
 
 **Arguments**
 
@@ -128,16 +232,17 @@ spotify.search.artists('Incubus')
 
 **Example**
 
+> this method returns a piped
+
 ```js
-spotify.search.tracks('Drive')
-  .then(data => {
-    // do what you want with the data
-  })
+viacep.zipCod.getPiped('29010250')
+  .then(data => data.text())
+  .then(data => console.log(data));
 ```
 
-### search.playlists(query)
+### zipCod.getQuerty(query)
 
-> Search for informations about Playlist with provided query. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-search-item/) with type defined as *playlist*.
+> Search for informations about zipcode with provided query. Test in [ViaCep web API](https://viacep.com.br/ws/01001000/querty/).
 
 **Arguments**
 
@@ -148,69 +253,55 @@ spotify.search.tracks('Drive')
 
 **Example**
 
+> this method returns a querty
+
 ```js
-spotify.search.playlists('Happy Day')
-  .then(data => {
-    // do what you want with the data
-  })
+viacep.zipCod.getQuerty('29010250')
+  .then(data => data.text())
+  .then(data => console.log(data));
 ```
 
-### album.getAlbum(id)
+## address methods
 
-> Search for informations about a specific Album with provided id. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-album/).
+### address.getJson(ids)
+
+> Search for informations about some address with all id's. Test in [ViaCep web APi](https://viacep.com.br/ws/RS/Porto%20Alegre/Domingos/json/).
 
 **Arguments**
 
-| Argument | Type    | Options           |
-|----------|---------|-------------------|
-|`id`   |*string* | 'Specific id'|
-
+| Argument | Type    | Options                         |
+|----------|---------|---------------------------------|
+|`ids`   |*Array of strings* | ['UF', 'city', 'street']|
 
 **Example**
 
+> this method returns a json
+
 ```js
-spotify.album.getAlbum('4aawyAB9vmqN3uQ7FjRGTy')
-  .then(data => {
-    // do what you want with the data
-  })
+viacep.address.getJson('ES', 'vitoria', 'alberto de')
+  .then(data => data.json())
+  .then(data => console.log(data));
 ```
 
-### album.getAlbums(ids)
+### address.getXml(ids)
 
-> Search for informations about some Albums with all id's. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-several-albums/).
+> Search for informations about some address with all id's.
+Test in [ViaCep web APi](https://viacep.com.br/ws/RS/Porto%20Alegre/Domingos/xml/)..
 
 **Arguments**
 
-| Argument | Type    | Options           |
-|----------|---------|-------------------|
-|`ids`   |*Array of strings* | ['id1', 'id2']|
+| Argument | Type              | Options                 |
+|----------|-------------------|-------------------------|
+|`ids`     |*Array of strings* | ['UF', 'city', 'street']|
 
 **Example**
 
-```js
-spotify.album.getAlbums(['4aawyAB9vmqN3uQ7FjRGTy', '1A2GTWGtFfWp7KSQTwWOyo'])
-  .then(data => {
-    // do what you want with the data
-  })
-```
-
-### album.getTracks(id)
-
-> Search for all tracks in a specific Album with provided id. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-album-tracks/).
-
-**Arguments**
-
-| Argument | Type    | Options           |
-|----------|---------|-------------------|
-|`id`   |*string* | 'Specific id'|
-
-**Example**
+> this method returns an xml
 
 ```js
-spotify.album.getTracks('4aawyAB9vmqN3uQ7FjRGTy')
-  .then(data => {
-    // do what you want with the data
-  })
+viacep.address.getXml('ES', 'vitoria', 'alberto de')
+  .then(data => data.text())
+  .then(data => console.log(data));
 ```
 
 ## Contributing
