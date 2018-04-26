@@ -18,11 +18,6 @@ export default class ViaCep {
   request(url) {
     this.url = url;
 
-    return fetch(url, {
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    return fetch(url);
   }
 }

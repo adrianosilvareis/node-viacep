@@ -2,7 +2,7 @@
   "name": "node-viacep",
   "version": "1.0.3",
   "description": "Empacotador da api ViaCep para projeto JS",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "clear": "rimraf lib && rimraf dist && rimraf coverage",
     "build": "npm run clear && babel --out-dir lib src",

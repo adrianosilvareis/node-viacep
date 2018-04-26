@@ -11,9 +11,11 @@
 <script src="../dist/viacep.umd.js"></script>
 
 <script>
-  const viacep = new ViaCep({});
+  const viacep = new ViaCep({
+    type: 'json'
+  });
 
-  const address = viacep.zipCod.getQuerty('29027422');
+  const address = viacep.zipCod.getXml('29027422');
 
   const addressEl = document.getElementById('address');
 
