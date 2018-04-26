@@ -13,7 +13,7 @@ global.fetch = require('node-fetch');
 
 describe('ViaCep Library', () => {
   it('should create an instance of ViaCep', () => {
-    const viacep = new ViaCep({});
+    const viacep = new ViaCep();
 
     expect(viacep).to.be.an.instanceof(ViaCep);
   });
