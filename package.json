@@ -39,7 +39,6 @@
   },
   "homepage": "https://github.com/adrianosilvareis/node-viacep#readme",
   "devDependencies": {
-    "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",

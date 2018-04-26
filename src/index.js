@@ -7,7 +7,8 @@ import address from './address';
 import { API_URL } from './config';
 
 export default class ViaCep {
-  constructor(options) {
+  constructor(options = {}) {
+
     this.apiURL = options.apiURL || API_URL;
     this.type = options.type || 'json';
 

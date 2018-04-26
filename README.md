@@ -32,9 +32,9 @@ $ npm install node-viacep --save
 // to import a specific method
 import ViaCep from 'node-viacep';
 
-const spotify = new SpotifyWrapper({
-  token: 'YOUR_TOKEN_HERE'
-});
+const viacep = new ViaCep({
+  type: 'json'
+})
 
 // using  method
 spotify.search.artists('Incubus');
