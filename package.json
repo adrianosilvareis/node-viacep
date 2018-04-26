@@ -1,6 +1,6 @@
 {
   "name": "node-viacep",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Empacotador da api ViaCep para projeto JS",
   "main": "lib/index.js",
   "scripts": {
